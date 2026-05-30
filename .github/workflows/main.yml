@@ -1,4 +1,4 @@
-name: Pipeline Evaluacion DevOps
+name: main.yml
 
 on:
   push:
@@ -12,22 +12,22 @@ on:
       - develop
 
 jobs:
-  seguridad:
-    name: Analisis de seguridad
+  snyk:
+    name: Snyk Security Scan
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar codigo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configurar Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
           cache: maven
 
-      - name: Ejecutar revision con Snyk
+      - name: Run Snyk Security Scan
         uses: snyk/actions/maven@master
         continue-on-error: true
         env:
@@ -35,77 +35,75 @@ jobs:
         with:
           args: --severity-threshold=high
 
-  pruebas:
-    name: Pruebas y cobertura
+  tests:
+    name: Run Tests with JaCoCo
     runs-on: ubuntu-latest
+    needs: snyk
 
     steps:
-      - name: Descargar codigo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configurar Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
           cache: maven
 
-      - name: Ejecutar pruebas con JaCoCo
+      - name: Run Tests and Generate Coverage
         run: mvn clean verify
 
-      - name: Guardar reporte de cobertura
+      - name: Upload JaCoCo Report
         uses: actions/upload-artifact@v4
         with:
-          name: reporte-cobertura-jacoco
+          name: jacoco-report
           path: target/site/jacoco
 
-  calidad:
-    name: Analisis de calidad
+  sonar:
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
-    needs: pruebas
+    needs: tests
 
     steps:
-      - name: Descargar codigo
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Configurar Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
           cache: maven
 
-      - name: Ejecutar analisis con SonarCloud
+      - name: Run SonarCloud Analysis
         run: mvn -B verify sonar:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  compilacion:
-    name: Compilacion y validacion Docker
+  build:
+    name: Build JAR
     runs-on: ubuntu-latest
-    needs:
-      - seguridad
-      - pruebas
-      - calidad
+    needs: sonar
 
     steps:
-      - name: Descargar codigo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configurar Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
           cache: maven
 
-      - name: Compilar aplicacion
+      - name: Build JAR
         run: mvn clean package
 
-      - name: Construir imagen Docker
+      - name: Build Docker image
         run: docker build -t bibliotecaduoc:latest .
 
-      - name: Validar Docker Compose
+      - name: Validate Docker Compose
         run: docker compose config

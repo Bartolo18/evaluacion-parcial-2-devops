@@ -27,13 +27,16 @@ jobs:
           java-version: 21
           cache: maven
 
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
       - name: Run Snyk Security Scan
-        uses: snyk/actions/maven@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
+        run: |
+          snyk auth "$SNYK_TOKEN"
+          snyk test --file=pom.xml --package-manager=maven --severity-threshold=high
 
   tests:
     name: Run Tests with JaCoCo
@@ -79,9 +82,14 @@ jobs:
           cache: maven
 
       - name: Run SonarCloud Analysis
-        run: mvn -B verify sonar:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.projectKey=marcoisg \
+            -Dsonar.organization=marcoisg \
+            -Dsonar.token=$SONAR_TOKEN
 
   build:
     name: Build JAR

@@ -1,0 +1,111 @@
+name: Pipeline Evaluacion DevOps
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  seguridad:
+    name: Analisis de seguridad
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Ejecutar revision con Snyk
+        uses: snyk/actions/maven@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  pruebas:
+    name: Pruebas y cobertura
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Ejecutar pruebas con JaCoCo
+        run: mvn clean verify
+
+      - name: Guardar reporte de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-cobertura-jacoco
+          path: target/site/jacoco
+
+  calidad:
+    name: Analisis de calidad
+    runs-on: ubuntu-latest
+    needs: pruebas
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Ejecutar analisis con SonarCloud
+        run: mvn -B verify sonar:sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  compilacion:
+    name: Compilacion y validacion Docker
+    runs-on: ubuntu-latest
+    needs:
+      - seguridad
+      - pruebas
+      - calidad
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Compilar aplicacion
+        run: mvn clean package
+
+      - name: Construir imagen Docker
+        run: docker build -t bibliotecaduoc:latest .
+
+      - name: Validar Docker Compose
+        run: docker compose config

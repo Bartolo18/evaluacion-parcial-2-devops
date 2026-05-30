@@ -1,14 +1,6 @@
 Bárbara
 
-\# Conclusiones del Proyecto
 
 
-
-En esta evaluación pude ver que en DevOps no todo es programar, también es importante dejar el proyecto ordenado y bien explicado. Aunque la parte técnica fue lo más complejo, la documentación igual es necesaria, porque si el README no está claro, cuesta entender cómo correr el proyecto o qué cosas se hicieron.
-
-Mi aporte fue más por el lado de la documentación, revisar la información del proyecto, ordenar los comandos, las responsabilidades y apoyar en el cierre del repositorio. También pude entender mejor para qué sirven herramientas como GitHub Actions, Docker, JaCoCo, Snyk y SonarCloud, ya que cada una ayuda en una parte distinta del proceso.
-
-Algo que me quedó claro es que el pipeline permite revisar varias cosas automáticamente, como las pruebas, la cobertura, la seguridad y el build. Eso hace que el proyecto no dependa solo de que alguien lo pruebe manualmente, sino que queda una forma más ordenada de validar los cambios.
-
-Para una próxima entrega creo que sería mejor definir desde el comienzo qué hará cada integrante y qué archivos se van a entregar, porque al final siempre se junta todo y puede ser confuso. Aun así, creo que el trabajo quedó bien encaminado, con el código funcionando y la documentación necesaria para que el profesor pueda revisar el repositorio.
+En esta evaluación entendí que DevOps no es solo programar o hacer que una aplicación funcione, también implica ordenar el proyecto, integrar cambios, revisar que todo quede correctamente en el repositorio y validar que las herramientas utilizadas aporten al flujo de trabajo. Durante el desarrollo pude participar en la revisión del proyecto, la actualización del README, la organización de la información técnica, la integración de cambios hacia la rama principal y el cierre del repositorio para que la entrega quedara completa y entendible. También pude comprender mejor cómo se relacionan herramientas como GitHub Actions, Docker, JaCoCo, Snyk y SonarCloud dentro de un proceso DevOps, ya que cada una cumple una función distinta: automatizar tareas, ejecutar pruebas, revisar cobertura, analizar seguridad, evaluar la calidad del código y apoyar el despliegue del microservicio. Algo que me quedó claro es que el pipeline permite validar el proyecto de forma más ordenada, porque revisa automáticamente aspectos como las pruebas, la cobertura, la seguridad y el build, evitando depender solo de pruebas manuales. Además, trabajar con ramas, commits y merge hacia `main` me ayudó a entender mejor la importancia de mantener un flujo de trabajo claro y controlado. Para una próxima entrega, creo que sería importante definir desde el comienzo qué hará cada integrante, qué ramas se usarán y qué archivos formarán parte de la entrega final, porque en este trabajo hubo momentos en que todo se juntó muy rápido y eso generó confusión. Aun así, el proyecto quedó bien encaminado, con el código funcionando, el repositorio ordenado, las herramientas configuradas y la documentación necesaria para que el profesor pueda revisar correctamente el trabajo.
 

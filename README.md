@@ -23,6 +23,7 @@ Es una solución ligera y autocontenida que permite validar un ciclo completo de
 * **JaCoCo**
 * **Snyk Security Scan**
 * **SonarCloud**
+* **AWS EC2**
 
 ---
 
@@ -267,6 +268,37 @@ El archivo `docker-compose.yml` permite orquestar la ejecución del contenedor d
 
 ---
 
+## Despliegue en AWS EC2
+
+El microservicio también fue desplegado en una instancia **Amazon EC2** dentro del entorno de **AWS Academy Learner Lab**.
+
+Para este despliegue se utilizó una instancia con **Amazon Linux 2023**, se habilitó el puerto `8082` en el Security Group y se ejecutó la aplicación mediante Docker.
+
+En la instancia EC2 se clonó el repositorio, se construyó la imagen del proyecto y se levantó el contenedor del microservicio:
+
+```bash
+git clone https://github.com/Bartolo18/evaluacion-parcial-2-devops.git
+cd evaluacion-parcial-2-devops
+sudo docker build -t bibliotecaduoc .
+sudo docker run -d --name bibliotecaduoc-app -p 8082:8082 bibliotecaduoc
+```
+
+El despliegue fue validado desde navegador mediante la IP pública de la instancia EC2:
+
+```text
+http://34.239.187.4:8082/api/v1/solicitudes
+```
+
+La respuesta obtenida fue:
+
+```json
+[]
+```
+
+Esto confirma que el microservicio quedó disponible en AWS EC2 y accesible mediante el puerto `8082`.
+
+---
+
 ## Trazabilidad del Proyecto
 
 La trazabilidad se garantiza mediante:
@@ -279,6 +311,7 @@ La trazabilidad se garantiza mediante:
 * Análisis en SonarCloud.
 * Escaneo de seguridad con Snyk.
 * Documentación en README.
+* Evidencia de despliegue en AWS EC2.
 
 Esto permite seguir el recorrido del proyecto desde el desarrollo hasta la validación final.
 

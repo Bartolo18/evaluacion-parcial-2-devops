@@ -113,7 +113,7 @@ docker compose down
 
 Una vez que la aplicación esté corriendo en el puerto `8082`, se pueden ejecutar las siguientes pruebas desde la terminal.
 
-### Listar todas las solicitudes de préstamo
+### Listar todas las solicitudes de préstamo.
 
 ```bash
 curl http://localhost:8082/api/v1/solicitudes

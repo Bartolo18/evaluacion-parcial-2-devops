@@ -9,7 +9,17 @@ import java.util.List;
 @Repository
 public class PrestamoRepository {
 
-    private List<Prestamo> listaPrestamos = new ArrayList<>();
+    private final List<Prestamo> listaPrestamos = new ArrayList<>(List.of(
+    new Prestamo(
+        19,
+        102,
+        "12345678-9",
+        "2026-06-06",
+        "2026-06-13",
+        7,
+        99
+    )
+));
 
     public List<Prestamo> obtenerPrestamos() {
         return listaPrestamos;

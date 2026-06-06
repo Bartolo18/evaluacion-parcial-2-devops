@@ -1,5 +1,7 @@
 # Proyecto Biblioteca DUOC - Microservicio de Gestión de Préstamos
 
+=======
+
 ## Descripción del Microservicio
 
 `bibliotecaduoc` es un microservicio desarrollado en **Spring Boot 3.5.0** y **Java 21**, diseñado para la administración de solicitudes de préstamos de libros dentro de la biblioteca de la institución.
@@ -10,7 +12,7 @@ Es una solución ligera y autocontenida que permite validar un ciclo completo de
 
 ---
 
-## Tecnologías Utilizadas
+## Tecnologías Utilizadas..
 
 * **Java 21** / Eclipse Temurin
 * **Spring Boot 3.5.0**
@@ -111,7 +113,7 @@ docker compose down
 
 Una vez que la aplicación esté corriendo en el puerto `8082`, se pueden ejecutar las siguientes pruebas desde la terminal.
 
-### Listar todas las solicitudes de préstamo
+### Listar todas las solicitudes de préstamo.
 
 ```bash
 curl http://localhost:8082/api/v1/solicitudes
@@ -120,10 +122,10 @@ curl http://localhost:8082/api/v1/solicitudes
 Respuesta esperada inicial:
 
 ```json
-[]
+[{"id_prestamo":19,"id_libro":102,"run_solicitante":"12345678-9","fecha_solicitud":"2026-06-06","fecha_entrega":"2026-06-13","cantidad_dias":7,"multas":99}]
 ```
 
-Esto indica que el arreglo en memoria se inició correctamente vacío.
+Esto indica que el arreglo en memoria se inició correctamente con los datos de ejemplo.
 
 ### Listar solicitudes ordenadas por ID de préstamo
 
@@ -347,3 +349,4 @@ Para realizar la entrega formal de esta evaluación se debe:
 
 * Marco Suárez
 * Bárbara Tolorza
+

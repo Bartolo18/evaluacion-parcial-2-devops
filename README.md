@@ -12,7 +12,7 @@ Es una solución ligera y autocontenida que permite validar un ciclo completo de
 
 ---
 
-## Tecnologías Utilizadas
+## Tecnologías Utilizadas..
 
 * **Java 21** / Eclipse Temurin
 * **Spring Boot 3.5.0**

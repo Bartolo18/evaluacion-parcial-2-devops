@@ -54,7 +54,9 @@ jobs:
         if: always()
         with:
           name: jacoco-report
-          path: target/site/jacoco
+          path: |
+                target/site/jacoco
+                target/site/jacoco/index.html
           if-no-files-found: warn
 
   sonar:

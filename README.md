@@ -122,10 +122,10 @@ curl http://localhost:8082/api/v1/solicitudes
 Respuesta esperada inicial:
 
 ```json
-[]
+[{"id_prestamo":19,"id_libro":102,"run_solicitante":"12345678-9","fecha_solicitud":"2026-06-06","fecha_entrega":"2026-06-13","cantidad_dias":7,"multas":99}]
 ```
 
-Esto indica que el arreglo en memoria se inició correctamente vacío.
+Esto indica que el arreglo en memoria se inició correctamente con los datos de ejemplo.
 
 ### Listar solicitudes ordenadas por ID de préstamo
 

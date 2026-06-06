@@ -12,12 +12,12 @@ public class PrestamoRepository {
     private final List<Prestamo> listaPrestamos = new ArrayList<>(List.of(
     new Prestamo(
         19,
-        101,
+        102,
         "12345678-9",
         "2026-06-06",
         "2026-06-13",
         7,
-        0
+        99
     )
 ));
 

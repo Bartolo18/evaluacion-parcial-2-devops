@@ -31,7 +31,6 @@ jobs:
         run: npm install -g snyk
 
       - name: Run Snyk Security Scan
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
@@ -115,3 +114,35 @@ jobs:
 
       - name: Validate Docker Compose
         run: docker compose config
+
+  deploy:
+    name: Deploy with Docker Compose
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Build JAR
+        run: mvn clean package -DskipTests
+
+      - name: Start services with Docker Compose
+        run: docker compose up -d --build
+
+      - name: Wait for service to be ready
+        run: sleep 15
+
+      - name: Health check
+        run: |
+          curl -f http://localhost:8082/api/v1/solicitudes || exit 1
+
+      - name: Stop services
+        run: docker compose down

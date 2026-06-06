@@ -7,3 +7,8 @@ services:
     environment:
       - SPRING_APPLICATION_NAME=bibliotecaduoc
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/api/v1/solicitudes"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -9,7 +9,14 @@ import java.util.List;
 @Repository
 public class PrestamoRepository {
 
-    private List<Prestamo> listaPrestamos = new ArrayList<>();
+    private List<Prestamo> listaPrestamos = new ArrayList<>(
+            List.of(
+                    new Prestamo(1, 1, "1", "2024-01-01", "2024-01-15", 14, 0
+
+                    ),
+                    new Prestamo(2, 2, "2", "2024-02-01", "2024-02-15", 14, 0   )
+            )   
+    );
 
     public List<Prestamo> obtenerPrestamos() {
         return listaPrestamos;

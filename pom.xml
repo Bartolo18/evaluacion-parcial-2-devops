@@ -20,7 +20,7 @@
 
     <properties>
         <java.version>21</java.version>
-        <sonar.projectKey>marcoisg</sonar.projectKey>
+        <sonar.projectKey>marcoisg_evaluacion-parcial-2-devops</sonar.projectKey>
         <sonar.organization>marcoisg</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <logback.version>1.5.37</logback.version>

@@ -95,12 +95,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.7.0.6970:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.projectKey=marcoisg \
             -Dsonar.organization=marcoisg \
             -Dsonar.token=$SONAR_TOKEN \
-            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.wait=true \
+            -Dsonar.newCode.referenceBranch=main
 
   deploy-aws:
     name: Deploy to AWS EC2 with Docker Compose

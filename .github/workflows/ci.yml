@@ -29,15 +29,16 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: "21"
           cache: maven
 
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+
       - name: Run Snyk Security Scan
-        uses: snyk/actions/maven@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=pom.xml --severity-threshold=high
+        run: snyk test --file=pom.xml --severity-threshold=high
 
   tests:
     name: Tests and JaCoCo
@@ -52,7 +53,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: "21"
           cache: maven
 
       - name: Run tests and generate coverage
@@ -81,10 +82,10 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: "21"
           cache: maven
 
-      - name: Run SonarCloud analysis and wait for quality gate
+      - name: Run SonarCloud analysis and wait for Quality Gate
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
@@ -106,8 +107,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy microservice with Docker Compose
-        run: |
-          docker compose up -d --build
+        run: docker compose up -d --build
 
       - name: Validate deployed API
         run: |

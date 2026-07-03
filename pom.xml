@@ -20,8 +20,8 @@
 
     <properties>
         <java.version>21</java.version>
-        <sonar.projectKey>Bartolo18_evaluacion-parcial-2-devops</sonar.projectKey>
-        <sonar.organization>Bartolo18</sonar.organization>
+        <sonar.projectKey>bartolo18_evaluacion-parcial-2-devops</sonar.projectKey>
+        <sonar.organization>bartolo18</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <logback.version>1.5.37</logback.version>
         <tomcat.version>10.1.56</tomcat.version>

@@ -108,6 +108,8 @@ jobs:
         run: |
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.7.0.6970:sonar \
             -Dsonar.token="${SONAR_TOKEN}" \
+            -Dsonar.projectKey=Bartolo18_evaluacion-parcial-2-devops \
+            -Dsonar.organization=Bartolo18 \
             -Dsonar.qualitygate.wait=true \
             -Dsonar.newCode.referenceBranch=main
 
